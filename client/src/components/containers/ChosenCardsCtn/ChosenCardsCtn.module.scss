@@ -1,0 +1,25 @@
+@import '../../../variables.scss';
+
+.chosen_cards_ctn {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 10rem;
+    }
+
+    > p {
+        margin: auto 2rem 3.5rem;
+        font-size: 3rem;
+        @media screen and (min-width: $tablet) {
+            margin-bottom: 4rem;
+            font-size: 4.5rem;
+        }
+    }
+}

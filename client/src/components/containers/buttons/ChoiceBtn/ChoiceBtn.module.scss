@@ -1,0 +1,49 @@
+@import '../../../../variables.scss';
+
+.button {
+    position: relative;
+    display: block;
+    width: 7rem;
+    height: 7rem;
+    border: 6px solid black;
+    border-radius: 50%;
+    font-size: 4rem;
+    user-select: none;
+    background-color: $highlight-color;
+    transition: all .3s;
+    @media screen and (min-width: $tablet) {
+        width: 10rem;
+        height: 10rem;
+        font-size: 5rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        border-color: $secondary-color;
+        opacity: .7;
+
+        .tooltip {
+            display: block;
+        }
+    }
+
+    .tooltip {
+        position: absolute;
+        bottom: -3rem;
+        display: none;
+        width: 100%;
+        font-family: $main-font;
+        font-size: 1.3rem;
+        text-align: center;
+        @media screen and (min-width: $tablet) {
+            bottom: -4rem;
+            font-size: 2rem;
+        }
+    }
+
+    &:last-child {
+        .tooltip {
+            left: -1rem;
+        }
+    }
+}

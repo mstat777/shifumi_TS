@@ -1,0 +1,56 @@
+@import '../../../variables.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    color: white;
+    background-color: $tertiary-color;
+
+    .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 780px;
+        margin: auto;
+
+        .logo_ctn {
+            position: absolute;
+            top: 1rem;
+
+            a {
+                display: flex;
+                align-items: center;
+                padding: 0;
+                margin: 0;
+                img {
+                    width: 128px;
+                    height: 30px;
+                }
+            }
+        }
+
+        ul {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            
+            li {
+                margin: 1rem;
+                list-style-type: none;
+                a {
+                    padding: .4rem 1rem;
+                    color: white;
+                    text-decoration: none;
+                    text-transform: uppercase;
+    
+                    &:hover {
+                        color: $highlight-color;
+                    }
+                }
+            }
+        }
+    }
+}

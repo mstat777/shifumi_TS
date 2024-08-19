@@ -1,0 +1,87 @@
+@import "../../../variables.scss";
+
+.home_section {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .next_round_btn,
+    .new_game_btn,
+    .play_btn {
+        padding: .6rem 2rem;
+        margin-bottom: 25px;
+        outline: 6px solid $tertiary-color;
+        border-radius: 2rem;
+        font-family: $title-font;
+        font-size: 5rem;
+        -webkit-text-stroke-width: 3px;
+        -webkit-text-stroke-color: black;
+        background-color: $highlight-color;
+        transition: all .3s;
+        &:hover {
+            background-color: rgb(80,255,66);
+        }
+    }
+    .next_round_btn,
+    .new_game_btn {
+        width: 13rem;
+        padding: unset;
+        margin: 0 1.5rem;
+        outline: 4px solid $tertiary-color;
+        border-radius: 1.2rem;
+        font-size: 2.4rem;
+        -webkit-text-stroke-width: 1px;
+        color: $secondary-color;
+        background-color: $darkblue-color;
+        &:hover {
+            color: $darkblue-color;
+            background-color: $secondary-color;
+        }
+    }
+
+    .round_status_txt {
+        margin: 1.5rem auto 1rem;
+        font-size: 3rem;
+        @media screen and (min-width: $tablet) {
+            margin: 1.5rem auto 3rem;
+        }
+    }
+    .result_txt {
+        margin: .5rem auto 2rem;
+        font-size: 3rem;
+        @media screen and (min-width: $tablet) {
+            margin: 1.5rem auto 4rem;
+        }
+    }
+
+    .choice_ctn {
+        display: flex;
+        margin-top: 1rem;
+        > button {
+            margin: 1rem;
+        }
+
+        .rock {
+            background-color: rgb(80,255,66);
+        }
+        .paper {
+            background-color: $highlight-color;
+        }
+        .scissors {
+            background-color: rgb(255,130,66);
+        }
+    }
+
+    .nav_btn_ctn {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 3rem;
+    }
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,30 @@
+@import '../../../variables.scss';
+
+.score_ctn {
+    position: absolute;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+    color: $primary-color;
+    background-color: $darkblue-color;
+
+    > p {
+        display: inline-block;
+        margin: auto .3rem;
+    }
+
+    .score_player,
+    .score_computer {
+        color: $secondary-color;
+    }
+    .score_player {
+        margin: auto .3rem auto 1rem;
+        text-align: end;
+    }
+    .score_computer {
+        margin: auto 1rem auto .3rem;
+        text-align: start;
+    }
+}

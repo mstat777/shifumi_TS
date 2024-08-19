@@ -1,0 +1,93 @@
+@import '../../../variables.scss';
+
+.popup_ctn {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    background-color: rgba(0,0,0, 0.5);
+    z-index: 100;
+
+    .popup {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: 20rem;
+        margin: auto;
+        padding: 3rem;
+        border: 2px solid $secondary-color;
+        border-radius: 12px;
+        background-color: $verylightgrey-color;
+        @media screen and (min-width: $tablet) {
+            width: 400px;
+            height: 400px;
+        }
+
+        &_form {
+            > label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .username_txt {
+                    margin-top: 1rem;
+                    padding: .4rem 1rem;
+                    width: 210px;
+                    text-align: center;
+                }
+            }
+
+            .err_msg {
+                width: 100%;
+                max-width: 600px;
+                font-size: 1.4rem;
+                color: $tertiary-color;
+                white-space: break-spaces;
+            }
+    
+            .submit_btn {
+                padding: .4rem 1rem;
+                margin-top: 2rem;
+                outline: 4px solid $tertiary-color;
+                border-radius: 2rem;
+                font-family: $title-font;
+                font-size: 2rem;
+                -webkit-text-stroke-width: 2px;
+                -webkit-text-stroke-color: black;
+                background-color: $highlight-color;
+                transition: background-color .3s;
+                &:hover {
+                    background-color: rgb(80,255,66);
+                }
+            }
+        }
+
+        .close_popup_btn {
+            position: absolute;
+            top: .5rem;
+            right: .5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 2.4rem;
+            width: 2.4rem;
+            border-radius: 50%;
+            font-weight: 800;
+            color: white;
+            background-color: $tertiary-color;
+            transition: background-color .3s;
+            &:hover {
+                background-color: red;
+            }
+        }
+    }
+}
