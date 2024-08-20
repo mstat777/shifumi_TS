@@ -1,38 +1,56 @@
 import styles from '../Card.module.scss';
 import React, { useEffect } from 'react';
+import { faHand } from '@fortawesome/free-solid-svg-icons';
+import { CardProps } from '../../../../configs/interfaces';
+import { CardType } from '../../../../configs/enums';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHand, faHandFist, faHandScissors } from '@fortawesome/free-solid-svg-icons';
+import { changeCardImage } from '../../../../utils/utils';
 
-interface Props {
-    choice: string
-}
+export default function GeneralCard({
+    cardType,
+    gesture, 
+    plCard,
+    setPlCard,
+    oppCard,
+    setOppCard
+}: CardProps) {
 
-export default function GeneralCard({choice}: Props) {
-    const [image, setImage] = React.useState<IconProp | null>(null);
-    const [bgrColor, setBgrColor] = React.useState<{} | null>(null);
+    const [change, setChange] = React.useState<{
+        image: IconProp, 
+        bgrColor: {}
+    }>({ 
+        image: faHand, 
+        bgrColor: {}
+    });
 
     useEffect(() => {
-        function changeImage(){
-            if (choice === "rock") {
-                setImage(faHandFist);
-                setBgrColor(styles.rock);
-            } else if (choice === "paper") {
-                setImage(faHand);
-                setBgrColor(styles.paper);
-            } else if (choice === "scissors") {
-                setImage(faHandScissors);
-                setBgrColor(styles.scissors);
-            }
+        if (gesture) {
+            setChange(changeCardImage(gesture));
         }
-
-        changeImage();
     },[]);
 
+    useEffect(() => {
+        if (setPlCard && cardType === CardType.Player) {
+            setPlCard(change);
+        } 
+        else if (setOppCard && cardType === CardType.Opponent) {
+            setOppCard(change);
+        }
+    },[change]);
+
     return (
-        image && bgrColor &&
-            <div className={`${styles.card_ctn} ${bgrColor}`}>
-                <FontAwesomeIcon icon={image}/>
-            </div>
+        <>
+            {plCard && cardType === CardType.Player &&
+                <div className={`${styles.card_ctn} ${plCard.bgrColor}`}>
+                    <FontAwesomeIcon icon={plCard.image as IconProp}/>
+                </div>
+            }
+            {oppCard && cardType === CardType.Opponent &&
+                <div className={`${styles.card_ctn} ${oppCard.bgrColor}`}>
+                    <FontAwesomeIcon icon={oppCard.image as IconProp}/>
+                </div>
+            }
+        </>
     );
 }

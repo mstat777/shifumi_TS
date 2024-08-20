@@ -1,21 +1,19 @@
 import styles from './ChoiceBtn.module.scss';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ButtonProps } from '../../../../configs/interfaces';
 
-interface ChoiceBtnProps {
-    onClick: () => void, 
-    className: {} | undefined, 
-    icon: IconProp, 
-    tooltip: string,
-    disabled?: boolean | undefined
-}
-
-export default function ChoiceBtn({onClick, className, icon, tooltip}: ChoiceBtnProps) {
+export default function ChoiceBtn({
+    onClick, 
+    className, 
+    icon, 
+    tooltip
+}: ButtonProps) {
     return (
         <button type="button"
                 onClick={onClick} 
                 className={`${styles.button} ${className}`}>
-            <FontAwesomeIcon icon={icon}/>
+            <FontAwesomeIcon icon={icon as IconProp}/>
             <p className={styles.tooltip}>{tooltip}</p>
         </button>
     );

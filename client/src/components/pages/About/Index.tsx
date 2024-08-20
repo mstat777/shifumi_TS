@@ -9,7 +9,8 @@ export default function About(){
     return (
         <main id="about">
             <h1>about</h1>
-            <p>It's an exercise for the PlayMakers company</p>
+            <p>Shifumi</p>
+            <p>The Rock-Paper-Scissors game as a test for a job interview</p>
         </main>
     )
 }

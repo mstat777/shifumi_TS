@@ -1,61 +1,42 @@
 import styles from '../Card.module.scss';
 import React, { useEffect } from 'react';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHand, faHandFist, faHandScissors } from '@fortawesome/free-solid-svg-icons';
+import { changeCardImage } from '../../../../utils/utils';
+import { CardProps } from '../../../../configs/interfaces';
+import { getRandomGesture } from '../../../../utils/utils';
 
-interface Props {
-    opponentChoice: string,
-    setOpponentChoice: (val: string) => void
-}
-
-export default function OpponentCard({opponentChoice, setOpponentChoice}: Props) {
+export default function OpponentCard({
+    opponentGesture, 
+    setOpponentGesture,
+    oppCard,
+    setOppCard
+}: CardProps) {
     const [timer, setTimer] = React.useState<number>(0); // in 0.1s
-    const [image, setImage] = React.useState<IconProp>(faHandFist);
-    const [bgrColor, setBgrColor] = React.useState<string>("styles.rock");
 
     useEffect(() => {
-        const computerTimeout = setTimeout(() => {
-            setOpponentChoice(getRandomHand());
-            setTimer(timer + 1);
-        }, 100);
+        if (setOpponentGesture) {
+            const computerTimeout = setTimeout(() => {
+                setOpponentGesture(getRandomGesture());
+                setTimer(timer + 1);
+            }, 100);
 
-        return () => clearTimeout(computerTimeout);
+            return () => clearTimeout(computerTimeout);
+        }
     },[timer]);
 
     useEffect(() => {
-        function changeImage(){
-            if (opponentChoice === "rock") {
-                setImage(faHandFist);
-                setBgrColor(styles.rock);
-            } else if (opponentChoice === "paper") {
-                setImage(faHand);
-                setBgrColor(styles.paper);
-            } else if (opponentChoice === "scissors") {
-                setImage(faHandScissors);
-                setBgrColor(styles.scissors);
-            }
+        if (opponentGesture && setOppCard) {
+            let change = changeCardImage(opponentGesture);
+            setOppCard(change);
         }
-
-        changeImage();
-    },[opponentChoice]);
-
-    function getRandomHand(){
-        let a: number = Math.random()*3;
-        let b: string = "";
-        if (a >= 0 && a <= 1) {
-            b = "rock";
-        } else if (a > 1 && a <= 2) {
-            b = "paper";
-        } else if (a > 2 && a <= 3) {
-            b = "scissors";
-        }
-        return b; 
-    }
+    },[opponentGesture]);
 
     return (
-        <div className={`${styles.card_ctn} ${bgrColor}`}>
-            <FontAwesomeIcon icon={image}/>
-        </div>
+        <>
+            {oppCard && 
+                <div className={`${styles.card_ctn} ${oppCard.bgrColor}`}>
+                    {oppCard.image && <FontAwesomeIcon icon={oppCard.image}/>}
+                </div>}
+        </>
     );
 }

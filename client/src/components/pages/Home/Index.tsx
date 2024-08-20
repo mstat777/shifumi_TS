@@ -1,11 +1,13 @@
 import styles from './Home.module.scss';
 import React, { useEffect } from 'react';
 import { faHand, faHandFist, faHandScissors } from '@fortawesome/free-solid-svg-icons';
+import { Gesture, Result } from '../../../configs/enums';
+import { Card } from '../../../configs/types';
 import NamePopup from '../../containers/NamePopup/Index';
 import MainBtn from '../../containers/buttons/MainBtn/Index';
 import ChoiceBtn from '../../containers/buttons/ChoiceBtn/Index';
 import OpponentCard from '../../containers/cards/OpponentCard/Index';
-import { getResult } from '../../../utils/utils.js';
+import { getResult } from '../../../utils/utils';
 import ChosenCardsCtn from '../../containers/ChosenCardsCtn/Index';
 import ScoreCtn from '../../containers/ScoreCtn/Index';
 
@@ -13,44 +15,50 @@ export default function Home(){
     const [playerName, setPlayerName] = React.useState<string>("");
     const [showPopup, setShowPopup] = React.useState<boolean>(false);
     const [gameStarted, setGameStarted] = React.useState<boolean>(false);
-    const [result, setResult] = React.useState<string | null>(null);
-    const [playerChoice, setPlayerChoice] = React.useState<string>('');
-    const [opponentChoice, setOpponentChoice] = React.useState<string>('');
+    const [result, setResult] = React.useState<Result | undefined>(undefined);
+    const [playerGesture, setPlayerGesture] = React.useState<Gesture | undefined>(undefined);
+    const [opponentGesture, setOpponentGesture] = React.useState<Gesture | undefined>(undefined);
     const [disabledBtn, setDisabledBtn] = React.useState<boolean>(false);
     const [playerPoints, setPlayerPoints] = React.useState<number>(0);
     const [opponentPoints, setOpponentPoints] = React.useState<number>(0);
+
+    const [plCard, setPlCard] = React.useState<Card>({
+        image: faHand,
+        bgrColor: {}
+    });
+    const [oppCard, setOppCard] = React.useState<Card>({
+        image: faHand,
+        bgrColor: {}
+    });
 
     // initialize variables when starting a new game:
     function initializeGame(){
         setPlayerName("");
         setGameStarted(false);
-        setResult(null);
-        setPlayerChoice('');
-        setOpponentChoice('');
-        setDisabledBtn(false);
+        initializeRound();
         setPlayerPoints(0);
         setOpponentPoints(0);
     }
 
     // initialize before NEXT ROUND:
     function initializeRound(){
-        setResult(null);
-        setPlayerChoice('');
-        setOpponentChoice('');
+        setResult(undefined);
+        setPlayerGesture(undefined);
+        setOpponentGesture(undefined);
         setDisabledBtn(false);
     }
 
     // once player has made a choice, first disable buttons:
     useEffect(() => {
-        if (playerChoice) {
+        if (playerGesture) {
             setDisabledBtn(true);
         }
-    },[playerChoice]);
+    },[playerGesture]);
 
     // then show the result:
     useEffect(() => {
         if (disabledBtn) {
-            setResult(getResult(playerChoice, opponentChoice));
+            setResult(getResult(playerGesture, opponentGesture));
         }
     },[disabledBtn]);
 
@@ -61,7 +69,7 @@ export default function Home(){
                 case 'won': setPlayerPoints(playerPoints + 1); break;
                 case 'drawn': break;
                 case 'lost': setOpponentPoints(opponentPoints + 1); break;
-                default: console.log("ERROR: result!!!");
+                default: throw new Error("ERROR: result is undefined!!!");
             }
         }
     },[result]);
@@ -94,34 +102,40 @@ export default function Home(){
                         { result && 
                             <>  
                                 <ChosenCardsCtn 
-                                    playerChoice={playerChoice} 
-                                    opponentChoice={opponentChoice} />
+                                    playerGesture={playerGesture} 
+                                    opponentGesture={opponentGesture} 
+                                    plCard={plCard}
+                                    setPlCard={setPlCard}
+                                    oppCard={oppCard}
+                                    setOppCard={setOppCard}/>
                                 <p className={styles.result_txt}>You have {result}</p>
                             </>
                         }
 
-                        {!playerChoice && 
+                        {!playerGesture &&
                             <>
                                 <p>Computer's choice:</p>
                                 <OpponentCard 
-                                    opponentChoice={opponentChoice}          setOpponentChoice={setOpponentChoice}/>
+                                    opponentGesture={opponentGesture}          setOpponentGesture={setOpponentGesture}
+                                    oppCard={oppCard}
+                                    setOppCard={setOppCard}/>
                             </>
                         }
 
                         <p>Make your choice:</p>
                         <div className={styles.choice_ctn}>
                             <ChoiceBtn icon={faHandFist}
-                                        onClick={() => setPlayerChoice("rock")}
+                                        onClick={() => setPlayerGesture(Gesture.Rock)}
                                         tooltip="rock" 
                                         className={styles.rock}
                                         disabled={disabledBtn}/>
                             <ChoiceBtn icon={faHand} 
-                                        onClick={() => setPlayerChoice("paper")}
+                                        onClick={() => setPlayerGesture(Gesture.Paper)}
                                         tooltip="paper" 
                                         className={styles.paper}
                                         disabled={disabledBtn}/>
                             <ChoiceBtn icon={faHandScissors} 
-                                        onClick={() => setPlayerChoice("scissors")}
+                                        onClick={() => setPlayerGesture(Gesture.Scissors)}
                                         tooltip="scissors" 
                                         className={styles.scissors}
                                         disabled={disabledBtn}/>
