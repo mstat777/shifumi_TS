@@ -26,10 +26,14 @@ body {
         main {
             width: 100%;
             height: calc(100vh - 50px - 40px - 30px); // = screen height - header - score ctn. - footer
-            max-width: 980px;
             margin: 90px auto 0;
-            padding: 0 4rem;
             text-align: center;
+
+            > section {
+                max-width: 780px;
+                margin: 0 auto;
+                padding: 0 4rem;
+            }
         }
     }
 }

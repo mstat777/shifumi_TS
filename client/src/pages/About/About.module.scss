@@ -1,0 +1,26 @@
+@import '../../variables.scss';
+
+.about {
+    h1 {
+        text-shadow: 0 0 4px $tertiary-color;
+    }
+
+    .info {
+        text-align: left;
+
+        > p {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+            > span {
+                &:first-child {
+                    color: $secondary-color;
+                    text-shadow: 0 0 4px $tertiary-color;
+                }
+                &:last-child {
+                    text-align: right;
+                }
+            }
+        }
+    }
+}

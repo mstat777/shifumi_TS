@@ -3,7 +3,7 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { faHand, faHandFist, faHandScissors } from '@fortawesome/free-solid-svg-icons';
 import { Gesture, Result } from '../configs/enums';
 
-function getRandomGesture(){
+export function getRandomGesture(){
     let a: number = Math.random()*3;
     if (a >= 0 && a <= 1) {
         return Gesture.Rock;
@@ -15,7 +15,7 @@ function getRandomGesture(){
 }
 
 // determine the result of the round:
-function getResult(player: Gesture | undefined, opponent: Gesture | undefined) {
+export function getResult(player: Gesture | undefined, opponent: Gesture | undefined) {
     let result: Result;
 
     switch (player){ 
@@ -49,7 +49,7 @@ function getResult(player: Gesture | undefined, opponent: Gesture | undefined) {
     return result;
 }
 
-function changeCardImage(choice: Gesture){
+export function changeCardImage(choice: Gesture){
     let result:{
         image: IconProp, 
         bgrColor: {}
@@ -71,7 +71,7 @@ function changeCardImage(choice: Gesture){
 }
 
 // validate player's name input:
-function validateInput(userData: string) {
+export function validateInput(userData: string) {
     const result = { 
         isValid: true, 
         errorMsg: '' 
@@ -88,8 +88,3 @@ function validateInput(userData: string) {
 
     return result;
 }
-
-export { getRandomGesture,
-        getResult, 
-        changeCardImage,
-        validateInput }

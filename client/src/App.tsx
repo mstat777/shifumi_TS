@@ -2,13 +2,13 @@ import './App.module.scss';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
 // ------------------- Containeurs  -----------------------
-import Header from './components/containers/Header/Index';
-import Footer from './components/containers/Footer/Index';
+import Header from './components/Header/Index';
+import Footer from './components/Footer/Index';
 
 // ---------------------- pages  ---------------------------
-import Home from './components/pages/Home/Index';
-import About from './components/pages/About/Index';
-import NotFound from './components/pages/NotFound/Index';
+import Home from './pages/Home/Index';
+import About from './pages/About/Index';
+import NotFound from './pages/NotFound/Index';
 
 function GeneralLayout() {
     return (
